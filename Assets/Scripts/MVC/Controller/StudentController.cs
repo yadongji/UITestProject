@@ -26,7 +26,7 @@ public class StudentController : SingletonBase<StudentController>
     public void Init()
     {
         // 加载UI面板
-        UIManager.Instance.LoadUIPanel<StudentManagerView>("StudentManagerPanel");
+        UIManager.Instance.OpenView<StudentManagerView>("StudentManagerPanel");
         // 加载本地数据
         LoadLocalData();
     }
