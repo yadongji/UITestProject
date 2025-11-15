@@ -7,7 +7,7 @@ public class MainView : IView
 {
     public void RegisterEvents()
     {
-        EventCenter.Instance.AddEventListener(CommonEvent.testID, RefreshInfo);
+        EventCenter.Instance.RegisterEvent(EventDefine.AddStudent, RefreshInfo);
     }
 
     private void RefreshInfo(object obj)
