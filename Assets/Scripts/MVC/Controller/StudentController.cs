@@ -85,6 +85,14 @@ public class StudentController : SingletonBase<StudentController>
     }
 
     /// <summary>
+    /// 从Http接受并加载数据，需要协同
+    /// </summary>
+    public void LoadDataFromHttp()
+    {
+        _studentModel.LoadData(false);
+    }
+
+    /// <summary>
     /// 加载网络数据（需在MonoBehaviour中启动协程）
     /// </summary>
     public void LoadNetData(string url)
