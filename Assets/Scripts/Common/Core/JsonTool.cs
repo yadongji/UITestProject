@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 public static class JsonTool
 {
     // 本地JSON存储路径（PersistentDataPath：Unity持久化目录，跨平台兼容）
-    private static string LocalJsonPath => Path.Combine(Application.persistentDataPath, "StudentData.json");
+    private static string LocalJsonPath => Path.Combine(Application.persistentDataPath, "Student.json");
 
     /// <summary>
     /// 对象序列化为JSON字符串

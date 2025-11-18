@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Model;
+
 /// <summary>
 /// 学生管理控制器（协调Model和View，解耦两层）
 /// </summary>
@@ -17,7 +15,9 @@ public class StudentController : SingletonBase<StudentController>
         // 注册事件（接收View的操作指令）
         EventCenter.Instance.RegisterEvent(EventDefine.AddStudent, OnAddStudent);
         EventCenter.Instance.RegisterEvent(EventDefine.DeleteStudent, OnDeleteStudent);
-        EventCenter.Instance.RegisterEvent(EventDefine.UpdateStudentList, OnDeleteStudent);
+        EventCenter.Instance.RegisterEvent(EventDefine.UpdateStudentList, OnUpdateStudent);
+        EventCenter.Instance.RegisterEvent(EventDefine.LoadDataSuccess, OnUpdateStudent);
+        EventCenter.Instance.RegisterEvent(EventDefine.LoadData, LoadLocalData);
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class StudentController : SingletonBase<StudentController>
     public void Init()
     {
         // 加载UI面板
-        UIManager.Instance.OpenView<StudentManagerView>("StudentManagerPanel");
+        UIManager.Instance.OpenView<ClassMainView>("Panel_ClassMainView");
         // 加载本地数据
         LoadLocalData();
     }
@@ -79,7 +79,7 @@ public class StudentController : SingletonBase<StudentController>
     /// <summary>
     /// 加载本地数据
     /// </summary>
-    public void LoadLocalData()
+    public void LoadLocalData(object data = null)
     {
         _studentModel.LoadData(isLocal: true);
     }

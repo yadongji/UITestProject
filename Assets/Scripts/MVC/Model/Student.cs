@@ -9,14 +9,14 @@ using UnityEngine;
 [Serializable]
 public class Student
 {
-    [SerializeField] private string _studentId; // 学号（唯一标识）
+    [SerializeField] private string _id; // 学号（唯一标识）
     [SerializeField] private string _name; // 姓名
     [SerializeField] private int _age; // 年龄
     [SerializeField] private bool _gender; // 性别 true代表男，false代表女
     [SerializeField] private float _score; // 成绩
 
     // 属性封装（只读/读写控制）
-    public string StudentId => _studentId;
+    public string StudentId => _id;
 
     public string Name
     {
@@ -43,12 +43,12 @@ public class Student
     }
 
     // 构造函数（创建学生实例时使用）
-    public Student(string studentId, string name, int age, float score)
+    public Student(string id, string name, int age, string gender, float score)
     {
-        _studentId = studentId;
+        _id = id;
         _name = name;
         _age = age;
-
+        _gender = gender=="男";
         _score = score;
     }
 }

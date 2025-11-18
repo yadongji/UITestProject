@@ -76,4 +76,6 @@ public static class EventDefine
     public const string DeleteStudent = "DeleteStudent"; // 删除学生
     public const string UpdateStudentList = "UpdateStudentList"; // 学生列表更新
     public const string LoadDataSuccess = "LoadDataSuccess"; // 数据加载成功
+    public const string LoadData = "LoadData"; // 重新加载数据
+
 }

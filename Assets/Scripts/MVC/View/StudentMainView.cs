@@ -74,7 +74,7 @@ public class StudentAddPopup : UIPopupBase
 
         // 通知Controller添加学生
         // TODO测试数据
-        Student studentData = new Student(studentId, name, 18, 80);
+        Student studentData = new Student(studentId, name, 18, "男", 80);
         EventCenter.Instance.TriggerEvent(EventDefine.AddStudent, studentData);
         UIManager.Instance.CloseView(ViewName);
 

@@ -51,13 +51,54 @@ public class UIManager : SingletonBase<UIManager>
             string rootName = $"{layer}Root";
             if (_uiRoot.Find(rootName) == null)
             {
-                GameObject rootObj = new GameObject(rootName);
-                rootObj.transform.SetParent(_uiRoot);
-                rootObj.transform.localScale = Vector3.one;
+                GameObject rootObj = CreateEmptyUnderCanvas(_uiRoot, rootName);
                 // 层级根节点的SiblingIndex与层级对应（确保上层根节点在上面）
                 rootObj.transform.SetSiblingIndex((int)layer);
+                SetRectTransformFillParent(rootObj.GetComponent<RectTransform>());
             }
         }
+    }
+    
+    /// <summary>
+    /// 在指定Canvas下创建空UI对象
+    /// </summary>
+    /// <param name="parentCanvas">父Canvas</param>
+    /// <param name="objName">对象名称</param>
+    /// <returns>创建的空UI对象</returns>
+    private GameObject CreateEmptyUnderCanvas(Transform parentCanvas, string objName)
+    {
+        // 1. 创建空GameObject
+        GameObject emptyObj = new GameObject(objName);
+        
+        // 2. 设置父对象为Canvas的RectTransform（关键：UI对象必须挂载RectTransform）
+        emptyObj.transform.SetParent(parentCanvas.transform, false);
+        
+        // 3. 确保对象有RectTransform（UI对象默认会自动添加，此处为容错）
+        if (emptyObj.GetComponent<RectTransform>() == null)
+        {
+            emptyObj.AddComponent<RectTransform>();
+        }
+
+        return emptyObj;
+    }
+    
+    /// <summary>
+    /// 让 RectTransform 占满父对象（这里父对象是 Canvas）
+    /// </summary>
+    /// <param name="rt">目标对象的 RectTransform</param>
+    private void SetRectTransformFillParent(RectTransform rt)
+    {
+        // 关键1：锚点拉伸到父对象四个边缘（Min(0,0) 左下角，Max(1,1) 右上角）
+        rt.anchorMin = new Vector2(0, 0);
+        rt.anchorMax = new Vector2(1, 1);
+
+        // 关键2：消除边缘偏移（Left/Right/Top/Bottom 都为 0，无间隙）
+        rt.offsetMin = new Vector2(0, 0);
+        rt.offsetMax = new Vector2(0, 0);
+
+        // 可选：重置其他属性（避免继承父对象的缩放/旋转）
+        rt.localScale = Vector3.one;
+        rt.localRotation = Quaternion.identity;
     }
 
     /// <summary>
